@@ -17,6 +17,12 @@ server.get("/posts", (req,res)=>{
     res.end("Liste des articles");
 });
 
+server.post("/posts", (req,res)=>{
+    res.type('html');
+    res.status(201);
+    res.end("Article crée");
+});
+
 server.listen(port, hostname, () => {
     console.log(`Serveur qui tourne sur le port ${port}`);
 });
