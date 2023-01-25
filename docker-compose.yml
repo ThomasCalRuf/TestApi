@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   node:
-    container_name: project_node
+    container_name: api-project-node
     image: 'node:latest'
     working_dir: /home/node/app
     command:
@@ -12,3 +12,17 @@ services:
       - '3000:3000'
     volumes:
       - './src:/home/node/app'
+    links:
+      - mongo
+    networks:
+      - api-project
+  mongo:
+    container_name: api-project-mongo
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - api-project
+networks:
+  api-project:
+    driver: bridge
