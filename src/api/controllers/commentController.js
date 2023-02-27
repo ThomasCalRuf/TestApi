@@ -1,7 +1,7 @@
-const Post = require('../models/postModel');
+const Comment = require('../models/commentModel');
 
-exports.listAllPosts = (req, res) => {
-    Post.find({}, (error, posts) => {
+exports.listAllComments = (req, res) => {
+    Comment.find({post_id : req.params.post_id}, (error, posts) => {
         if(error){
             res.status(500);
             console.log(error);
@@ -14,10 +14,11 @@ exports.listAllPosts = (req, res) => {
     })
 }
 
-exports.createAPost = (req,res) => {
-    let newPost = new Post(req.body);
+exports.createComments = (req,res) => {
+    let newComment = new Comment(req.body);
+    newComment.post_id = req.params.post_id;
 
-    newPost.save((error, post)=>{
+    newComment.save((error, post)=>{
         if(error){
             res.status(401);
             console.log(error);
@@ -30,8 +31,8 @@ exports.createAPost = (req,res) => {
     })
 }
 
-exports.updateAPost = (req, res) => {
-    Post.findByIdAndUpdate( req.params.post_id , req.body, { new: true }, (error, post) => {
+exports.updateAComment = (req, res) => {
+    Comment.findByIdAndUpdate( req.params.comment_id , req.body, { new: true }, (error, post) => {
         if (error) {
             res.status(500);
             console.log(error);
@@ -43,8 +44,8 @@ exports.updateAPost = (req, res) => {
     });
 };
 
-exports.deleteAPost = (req, res) => {
-    Post.findByIdAndDelete(req.params.post_id, (error, post) => {
+exports.deleteAComment = (req, res) => {
+    Comment.findByIdAndDelete(req.params.comment_id, (error, post) => {
         if (error) {
             res.status(500);
             console.log(error);
@@ -56,8 +57,8 @@ exports.deleteAPost = (req, res) => {
     });
 };
 
-exports.listAPost = (req, res) => {
-    Post.findById( req.params.post_id, (error, post) => {
+exports.listAComment = (req, res) => {
+    Comment.findById( req.params.comment_id, (error, post) => {
         if(error){
             res.status(500);
             console.log(error);
