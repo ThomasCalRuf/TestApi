@@ -12,10 +12,13 @@ server.use(express.urlencoded());
 server.use(express.json());
 
 const postRoute = require("./api/routes/postRoute");
-const commentRoute = require("./api/routes/commentRoute");
-
 postRoute(server);
+
+const commentRoute = require("./api/routes/commentRoute");
 commentRoute(server);
+
+const userRoute = require("./api/routes/userRoute");
+userRoute(server);
 
 server.listen(port, hostname, () => {
     console.log(`Serveur qui tourne sur le port ${port}`);
